@@ -15,7 +15,7 @@ Every few months we see pollution incidents from a range of causes:
 These cause damage to the wildlife, particularly the many fish and eels which live in the River. 
 We have formed a group which keeps an eye on the River and report pollution incidents so the Environment Agency can send a team to investigate and mitigate the damage. 
 
-But we're a small group and it can take hours or days to notice a problem. 
+But we're a small group and it can take hours or days to notice a problem. Local authorities inform us that instaling an industrial monitoring station can be upwards of £6000 and are reluctant to do so on such a small river. So I wanted to know if a community can build something that will do the job for as little money as possible. 
 
 ## Aims
 Use low-cost, remotely deployed sensors to alert the community to a pollution incident. 
@@ -106,3 +106,35 @@ This:
 
 Now we can get out on the road and test our signal with our not at all suspicious looking box. 
 ![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/signaltester.png)
+I took my box for a walk along the river and recorded where it finally stopped blinking. 
+Overall I got a range of around 300m. This is a bit disappointing but not terrible. I suspect factors affecting range are:
+- Low quality antenna (consider upgrading)
+- Base station is on first floor of my house but could go on the roof. I also live in the valley which doesn't aid line of site
+- Most people don't have this thing at the end of their garden:
+[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Viaduct.jpg)
+
+Still for the intiial stage I know I can deploy one station, and probably as many as three on a 600m stretch of river which is a good start. 
+
+Note that we are collecting battery percentage. I based this on a minimum battery voltage of 3.3V. We can therefore use a simple linear model to analyse this data to forecast battery life. 
+[batterymodel.R](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/batterymodel.R)
+Transmitting every 2 seconds it forecasts a battery life of 8 days. 
+
+## Preparing for deployment
+This code also reads the sensor voltage and transmits a signal ID (I've made this 999, chose a unique value for each station) along with battery percentage.
+[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/remotestation_v1.ino)
+Note that I had a problem concatenating the ID, percentage and sensor voltage so have multiplied these up to make them integers. A more experienced C coder will probably solve this problem in seconds. 
+This now transmits every 2 hours and puts the radio antenna to sleep between readings. 
+** In progress ** testing this mode and predicting battery life. 
+
+## To do next
+- Convert the sensor voltage to TDS and calibrate. (Note: we will do this at the base station so this can be altered more easily. I need to know river water temperature for this and will consider using this [Thames live temperature](https://dl1.findlays.net/show/temp/thames1) as a proxy. 
+- Upload data to a suitable IOT cloud service and set up alerts. We need to determine what sort of variation in TDS can indicate a pollution incident. 
+- Build housing and secure to stake. Plan is to simply hammer into river bed. 
+- Deploy first prototype. 
+- Consider scaling up to 3 sensors
+
+In theory this can be deployed along a much longer stretch of river if range issues can be resolved or multiple base stations are placed along the route. You could build a cluster model with a range of sensors (TDO, TDS and temperature) for the best possible range of readings. 
+
+## Notes on project
+- This is my first Arduino project and I'm extremely grateful to the Radiohead library creators for making this easy. 
+- If you think this is something that can help your community please do it. Feel free to use, criticise or modify anything I've created to make it happen. 
