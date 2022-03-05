@@ -125,7 +125,7 @@ Transmitting every 2 seconds it forecasts a battery life of 8 days.
 
 ## Preparing for deployment
 This code also reads the sensor voltage and transmits a signal ID (I've made this 999, chose a unique value for each station) along with battery percentage.
-[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/remotestation_v1.ino)
+[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/remotestation_v1.1.ino)
 Note that I had a problem concatenating the ID, percentage and sensor voltage so have multiplied these up to make them integers. A more experienced C coder will probably solve this problem in seconds. 
 This now transmits every 2 hours and puts the radio antenna to sleep between readings. 
 
