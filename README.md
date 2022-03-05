@@ -45,3 +45,13 @@ Simply connect lithium battery and connect sensor to GND, 5V and A3 pin for anal
 Hey presto, one remote station
 ![Remote station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Prototype.jpg)
 
+### Casing
+** To do ** 
+I'm looking at junction box like [this one](https://www.toolstation.com/junction-box-ip66/p47979)
+![](https://cdn.aws.toolstation.com/images/141020-UK/800/47979.jpg)
+
+Ideally this needs to be IP68 in the event of full immersion. 
+Junction boxes are:
+- Resistant to the elements
+- Cheap (£5)
+- Discreet. This will be deployed in a public place and relies on safety through obscurity. We want our remote unit to be as boring as possible. 
