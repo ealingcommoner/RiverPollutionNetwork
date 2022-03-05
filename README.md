@@ -28,3 +28,9 @@ Having reviewed pollution incident reports, it appears the most common indicator
 TDO sensors are around £130 each, whilst [this TDS sensor](https://www.dfrobot.com/product-1662.html) is £11. We could consider adding TDO in future if funding permits, but for now it seems TDS gives us the best effect for our money.
 
 ![Gravity TDS Sensor](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Gravity.jpg)
+
+## Remote Station
+For the remote station I chose an [Adafruit Feather 32u4 with LoRa Radio Module](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/setup) 
+![Radiofruit module](https://cdn-learn.adafruit.com/guides/cropped_images/000/001/273/medium640/thumb2.jpg?1520544037)
+
+
