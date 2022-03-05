@@ -113,7 +113,7 @@ Overall I got a range of around 300m. This is a bit disappointing but not terrib
 - Low quality antenna (consider upgrading)
 - Base station is on first floor of my house but could go on the roof. I also live in the valley which doesn't aid line of site
 - Most people don't have this thing at the end of their garden:
-[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Viaduct.jpg)
+[The historic and very, very solid Wharncliffe Viaduct](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Viaduct.jpg)
 
 Still for the intiial stage I know I can deploy one station, and probably as many as three on a 600m stretch of river which is a good start. 
 
