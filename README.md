@@ -89,5 +89,20 @@ Even easier. Connect Lotus to USB on pi and Grove Lora to port D5.
 
 [For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/rf95_clientbase.ino)
 
+All I've done here is adapt the rf95client code in Radiohead library. it will transmit a test signal and listen for a transmission from the remote station and send this to the serial port. 
 
+[For pi](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Readfrombasestationandlog.py)
+This code reads the transmission from the remote station, parses to individual variables and logs.
+** To do ** Add uploading to a suitable IOT service and start building alerts. 
 
+## Range testing
+Upload this code to the Feather module
+[For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/transmitwithvoltage.ino)
+
+This:
+- Reads battery voltage
+- Transmits to base station. 
+- Listens for base station commands and flashes LED when received. 
+
+Now we can get out on the road and test our signal with our not at all suspicious looking box. 
+![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/signaltester.png)
