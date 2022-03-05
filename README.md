@@ -64,4 +64,23 @@ Junction boxes are:
 | 6700mAh Lithium Batter | £18         |
 | Junction box | £5         |
 | **Total** | £67         |
+
 This meets our requirements for a low cost sensor.
+
+## Base station
+I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lotus ](https://wiki.seeedstudio.com/Seeeduino_Lotus/)and a [Grove Lora Module](https://wiki.seeedstudio.com/Grove_LoRa_Radio/) and stuffed them in old takeaway containers for that just cobbled together charm. 
+* Note:: all modules will run at 915MHz, make sure you buy the correct type. 
+* Note: Original plan was to use a LoRa HAT for the pi, mine was faulty so I went with what I had. The HAT has a better antenna so may have a better range.
+![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station.jpg)
+
+###Assembly
+
+##Bill of materials
+| Item     | Cost |
+| ---      | ---       |
+| Raspberry Pi 3  | £34         |
+| Seeeduino Lotus| £13         |
+| Grove Lora module | £19.90         |
+| **Total** | £66.90         |
+* Note: Pi3 is not currently available. A pi4 would do fine, I suspect even a pi zero would be able to run this but not tested. 
+
