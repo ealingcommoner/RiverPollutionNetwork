@@ -33,4 +33,15 @@ TDO sensors are around £130 each, whilst [this TDS sensor](https://www.dfrobot.
 For the remote station I chose an [Adafruit Feather 32u4 with LoRa Radio Module](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/setup) 
 ![Radiofruit module](https://cdn-learn.adafruit.com/guides/cropped_images/000/001/273/medium640/thumb2.jpg?1520544037)
 
+It has a low power usage and a built in LoRa radio for long range communications, along with a battery management circuit. Incredibly impressive for just £33. 
+
+In addition we need a battery. I want a pretty powerful battery because ideally we want this to operate for weeks at a time without intervention. I'm avoiding solar panels if possible as they add cost. I went with the [6700mAh High Capacity Lithium Ion Battery](https://shop.pimoroni.com/products/high-capacity-lithium-ion-battery-pack?variant=32012684591187) for the prototype. 
+
+### Assembly
+Simply connect lithium battery and connect sensor to GND, 5V and A3 pin for analogue reader. You'll need to solder on:
+- Header pins
+- Whip antenna (cut wire to 7.8cm for 915MHZ frequency mode)
+
+Hey presto, one remote station
+![Remote station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Prototype.jpg)
 
