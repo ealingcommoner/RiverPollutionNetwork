@@ -57,7 +57,11 @@ Junction boxes are:
 - Discreet. This will be deployed in a public place and relies on safety through obscurity. We want our remote unit to be as boring as possible. 
 
 ### Cost
-	| Bill of materials | Description |
-| ----------- | ----------- |
-| Item | Cost |
-| Paragraph | Text |
+| Item     | Cost |
+| ---      | ---       |
+| Adafruit Feather 32u4 with LoRa Radio Module | £33         |
+| Gravity TDS Sensor | £11         |
+| 6700mAh Lithium Batter | £18         |
+| Junction box | £5         |
+| **Total** | £67         |
+This meets our requirements for a low cost sensor.
