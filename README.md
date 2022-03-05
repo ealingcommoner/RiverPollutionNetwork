@@ -55,3 +55,9 @@ Junction boxes are:
 - Resistant to the elements
 - Cheap (£5)
 - Discreet. This will be deployed in a public place and relies on safety through obscurity. We want our remote unit to be as boring as possible. 
+
+### Cost
+	| Bill of materials | Description |
+| ----------- | ----------- |
+| Item | Cost |
+| Paragraph | Text |
