@@ -74,6 +74,7 @@ I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lot
 ![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station.jpg)
 
 ###Assembly
+Even easier. Connect Lotus to USB on pi and Grove Lora to port D5. 
 
 ##Bill of materials
 | Item     | Cost |
@@ -83,4 +84,10 @@ I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lot
 | Grove Lora module | £19.90         |
 | **Total** | £66.90         |
 * Note: Pi3 is not currently available. A pi4 would do fine, I suspect even a pi zero would be able to run this but not tested. 
+
+## Base station code
+
+[For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/rf95_clientbase.ino)
+
+
 
