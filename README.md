@@ -5,7 +5,7 @@ Building a low-cost community pollution detector for our local river
 
 ##Background to project
 The River Brent in West London is a little river which runs through a mix of urban industrial areas and the huge Brent River Park in Hanwell. 
-![The Brent River in Hanwell](Brent River.jpg)
+![The Brent River in Hanwell](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Brent%20River.jpg)
 
 Every few months we see pollution incidents from a range of causes:
 - Deliberate dumping of pollutants
@@ -27,3 +27,4 @@ Having reviewed pollution incident reports, it appears the most common indicator
 
 TDO sensors are around £130 each, whilst [this TDS sensor](https://www.dfrobot.com/product-1662.html is £11. We could consider adding TDO in future if funding permits, but for now it seems TDS gives us the best effect for our money. 
 
+![Gravity TDS Sensor](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Gravity.jpg)
