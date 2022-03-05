@@ -46,7 +46,7 @@ Hey presto, one remote station
 ![Remote station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Prototype.jpg)
 
 ### Casing
-** To do ** 
+**To do** 
 I'm looking at junction box like [this one](https://www.toolstation.com/junction-box-ip66/p47979)
 ![](https://cdn.aws.toolstation.com/images/141020-UK/800/47979.jpg)
 
@@ -73,10 +73,11 @@ I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lot
 * Note: Original plan was to use a LoRa HAT for the pi, mine was faulty so I went with what I had. The HAT has a better antenna so may have a better range.
 ![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station.jpg)
 
-###Assembly
+### Assembly
+
 Even easier. Connect Lotus to USB on pi and Grove Lora to port D5. 
 
-##Bill of materials
+## Bill of materials
 | Item     | Cost |
 | ---      | ---       |
 | Raspberry Pi 3  | £34         |
@@ -96,7 +97,8 @@ This code reads the transmission from the remote station, parses to individual v
 ** To do ** Add uploading to a suitable IOT service and start building alerts. 
 
 ## Range testing
-Upload this code to the Feather module
+Upload this code to the Feather module:
+
 [For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/transmitwithvoltage.ino)
 
 This:
@@ -116,7 +118,9 @@ Overall I got a range of around 300m. This is a bit disappointing but not terrib
 Still for the intiial stage I know I can deploy one station, and probably as many as three on a 600m stretch of river which is a good start. 
 
 Note that we are collecting battery percentage. I based this on a minimum battery voltage of 3.3V. We can therefore use a simple linear model to analyse this data to forecast battery life. 
+
 [batterymodel.R](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/batterymodel.R)
+
 Transmitting every 2 seconds it forecasts a battery life of 8 days. 
 
 ## Preparing for deployment
@@ -124,7 +128,8 @@ This code also reads the sensor voltage and transmits a signal ID (I've made thi
 [](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/remotestation_v1.ino)
 Note that I had a problem concatenating the ID, percentage and sensor voltage so have multiplied these up to make them integers. A more experienced C coder will probably solve this problem in seconds. 
 This now transmits every 2 hours and puts the radio antenna to sleep between readings. 
-** In progress ** testing this mode and predicting battery life. 
+
+**In progress** testing this mode and predicting battery life. 
 
 ## To do next
 - Convert the sensor voltage to TDS and calibrate. (Note: we will do this at the base station so this can be altered more easily. I need to know river water temperature for this and will consider using this [Thames live temperature](https://dl1.findlays.net/show/temp/thames1) as a proxy. 
