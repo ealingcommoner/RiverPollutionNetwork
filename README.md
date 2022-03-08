@@ -131,10 +131,22 @@ This now transmits every 2 hours and puts the radio antenna to sleep between rea
 
 **In progress** testing this mode and predicting battery life. 
 
+Issues in testing:
+- Transmission stops after 12 hours in 2 hour sleep mode. Does not occur when delay is one hour. Testing 1.5 hours and charting battery life. 
+- Range is poorer than when in earlier signal testing- <50m. Possible upgrade for aerial needed. 
+
+MQTT deployment
+Updated base code to connect to thingspeak channel. 
+[Code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/read_MQTT_Edited.py)
+
+Housing
+IP68 container (still requires sealing at top end but we'll leave this open for now as may be required for external aeria. 
+![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Remote%20station%20housing.jpg)
+
 ## To do next
 - Convert the sensor voltage to TDS and calibrate. (Note: we will do this at the base station so this can be altered more easily. I need to know river water temperature for this and will consider using this [Thames live temperature](https://dl1.findlays.net/show/temp/thames1) as a proxy. 
 - Upload data to a suitable IOT cloud service and set up alerts. We need to determine what sort of variation in TDS can indicate a pollution incident. 
-- Build housing and secure to stake. Plan is to simply hammer into river bed. 
+- Secure to stake. Plan is to simply hammer into river bed. 
 - Deploy first prototype. 
 - Consider scaling up to 3 sensors
 
