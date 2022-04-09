@@ -74,6 +74,7 @@ Junction boxes are:
 This meets our requirements for a low cost sensor. An antenna adds £15 to the price.
 ![Finished prototype](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Sensor%20with%20aerial.jpg)
 
+Updated versions of remote sensor code to follow. 
 
 ## Temperature sensor
 As above but using [Waterproof DS18B20-compatible Temperature Sensor](https://shop.pimoroni.com/products/ds18b20-programmable-resolution-1-wire-digital-thermometer?variant=32127344640083)
@@ -94,7 +95,9 @@ Even easier. Add Lora bonnet to pi, add an SD card for the operating system and 
 | **Total** | £56.70         |
 
 I particularly like the little screen. As this will be headless we can make good use of that to see the most recent transmissions. 
+
 Note: Make sure all Lora devices are RFM9x as different types of devices cannot communicate. This limits our frequency to around 900Mhz. 
+
 Important: You must make sure that you follow radio frequency laws in your area. In the UK devices must use 863-870Mhz or 433Mhz.
 
 ![Final base station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station%20zero.jpg)
@@ -103,7 +106,9 @@ Important: You must make sure that you follow radio frequency laws in your area.
 
 Set up raspberry Pi as usual. Install libraries from [here](https://learn.adafruit.com/adafruit-radio-bonnets)
 [Base station code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/brentbase_pub.py)
-Our code is quite complex but uses the ID of each station to put together a payload to send to thingspeak.com. Recorded data includes:
+Our code is quite complex but uses the ID of each station to put together a payload to send to thingspeak.com. 
+
+Recorded data includes:
 - Probe readings (TDS and temperature)
 - Battery readings
 - Signal strength
@@ -117,15 +122,19 @@ Note that readings take time to settle down. The temperature sensor needs a whil
 
 ![calibration test](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/calibration.jpg)
 
+## Battery life
+I'm predicting a battery life of around 30 days, you can use a simple linear model like [this](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/batterymodel.R) to predict battery life.
+
+## Range
+In testing I have found a range of 350m, your experience may vary based on buildings and trees in the range and aerial placement. 
 
 ## To do next
-- Convert the sensor voltage to TDS and calibrate. (Note: we will do this at the base station so this can be altered more easily. I need to know river water temperature for this and will consider using this [Thames live temperature](https://dl1.findlays.net/show/temp/thames1) as a proxy. 
-- Upload data to a suitable IOT cloud service and set up alerts. We need to determine what sort of variation in TDS can indicate a pollution incident. 
-- Secure to stake. Plan is to simply hammer into river bed. 
-- Deploy first prototype. 
-- Consider scaling up to 3 sensors
+- I have made a lot of changes to the remote sensor code and will upload this asap. 
+- test sensors with a range of materials including mineral water and distilled water. 
+- Deploy to river. Ideally these will just be attached to a stake and hammered in. 
 
-In theory this can be deployed along a much longer stretch of river if range issues can be resolved or multiple base stations are placed along the route. You could build a cluster model with a range of sensors (TDO, TDS and temperature) for the best possible range of readings. 
+You could build a cluster model with a range of sensors (TDO, TDS and temperature) for the best possible range of readings. 
+To cover more river I have a few ideas, either getting local volunteers to host their own base stations or to build some simple relay stations based around the remote sensor design. I also want to make these solar powered in future. 
 
 ## Notes on project
 - This is my first Arduino project and I'm extremely grateful to the Radiohead library creators for making this easy. 
