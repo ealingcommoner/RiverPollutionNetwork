@@ -35,6 +35,13 @@ Each node will consist of
 - 1 remote temperature sensor (this is cruicial to calibrate our readings)
 - 1 base station
 
+Each remote station requires an ID. I have allocate 3 digit numbers in the system
+- First digit: Node letter (9) for our first node
+- Second digit: Type of sensor (9 for TDS, 8 for temperature)
+- Third digit: Unique number. 
+So our TDS sensors are 996 and 998 (it doesn't seem sensible to use '999' as an ID!) and temperature sensor is 986. All this code is configured on this system. 
+This means we can add extra classes of devices (7 could be an oxygen sensor and 6 a relay for example). 
+
 ## Remote TDS Sensor
 For the remote station I chose an [Adafruit Feather 32u4 with LoRa Radio Module](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/setup) 
 ![Radiofruit module](https://cdn-learn.adafruit.com/guides/cropped_images/000/001/273/medium640/thumb2.jpg?1520544037)
@@ -72,12 +79,24 @@ Junction boxes are:
 | **Total** | £67         |
 
 This meets our requirements for a low cost sensor. An antenna adds £15 to the price.
+I have tested the system and with an antenna sticking through the top space this appears to be waterproof. 
+
 ![Finished prototype](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Sensor%20with%20aerial.jpg)
 
-Updated versions of remote sensor code to follow. 
+## Code
+Install Arduino IDE and ensure that you have the correct board and libraries added. You will need:
+- Radiohead library
+- Dallas Temperature
+- Onewire
+- Board is Adafruit Feather 32u4
+
+Set your ID number to agree with the IDs you have included in your base station code and flash [this code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/tdsstation.ino). 
+Note that this transmits every 15 minutes, you can alter this to reflect your needs (in the UK you require a 0.1% duty cycle, transmission time is <1s so this is compliant)
 
 ## Temperature sensor
 As above but using [Waterproof DS18B20-compatible Temperature Sensor](https://shop.pimoroni.com/products/ds18b20-programmable-resolution-1-wire-digital-thermometer?variant=32127344640083)
+
+Again, set a suitable ID and flash [this code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/tempstation.ino). 
 
 ## Base station
 I didn't like my original base station so have made a new one consisting of a Raspberry Pi Zero 2 and an  [Adafruit Lora Bonnet](https://shop.pimoroni.com/products/adafruit-lora-radio-bonnet-with-oled-rfm95w-915mhz-radiofruit?variant=27912635220051)
@@ -99,6 +118,8 @@ I particularly like the little screen. As this will be headless we can make good
 Note: Make sure all Lora devices are RFM9x as different types of devices cannot communicate. This limits our frequency to around 900Mhz. 
 
 Important: You must make sure that you follow radio frequency laws in your area. In the UK devices must use 863-870Mhz or 433Mhz.
+
+I have used the maximum transmission power allowed (23dB) and the transmission mode Bw125Cr45Sf128. Feel free to change but it is a rabbit hole and I would not recommend revisiting again!
 
 ![Final base station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station%20zero.jpg)
 
@@ -122,6 +143,10 @@ Note that readings take time to settle down. The temperature sensor needs a whil
 
 ![calibration test](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/calibration.jpg)
 
+After calibration we are finding that readings are in agreement to within 2ppm and there's a variation of less than 1ppm over time. I would estimate error as 0.6%. From reading reports of pollution images we need to be able to detect changes of ~10% so I'm feeling confident. 
+
+![Readings over time post calibration](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/tapwatertesting.jpg)
+
 ## Battery life
 I'm predicting a battery life of around 30 days, you can use a simple linear model like [this](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/batterymodel.R) to predict battery life.
 
@@ -129,8 +154,7 @@ I'm predicting a battery life of around 30 days, you can use a simple linear mod
 In testing I have found a range of 350m, your experience may vary based on buildings and trees in the range and aerial placement. 
 
 ## To do next
-- I have made a lot of changes to the remote sensor code and will upload this asap. 
-- test sensors with a range of materials including mineral water and distilled water. 
+- Test sensors with a range of materials including mineral water and distilled water. 
 - Deploy to river. Ideally these will just be attached to a stake and hammered in. 
 
 You could build a cluster model with a range of sensors (TDO, TDS and temperature) for the best possible range of readings. 
@@ -139,3 +163,4 @@ To cover more river I have a few ideas, either getting local volunteers to host 
 ## Notes on project
 - This is my first Arduino project and I'm extremely grateful to the Radiohead library creators for making this easy. 
 - If you think this is something that can help your community please do it. Feel free to use, criticise or modify anything I've created to make it happen. 
+- Massive thanks to the incredible service from The Pi Hut and Pimoroni. As ever I'm staggered by the sheer creativity of Adafruit and their incredible board. 
