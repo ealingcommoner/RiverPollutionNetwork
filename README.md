@@ -46,7 +46,8 @@ In addition we need a battery. I want a pretty powerful battery because ideally 
 ### Assembly
 Simply connect lithium battery and connect sensor to GND, 5V and A3 pin for analogue reader. You'll need to solder on:
 - Header pins
-- Whip antenna (cut wire to 7.8cm for 915MHZ frequency mode)
+- Whip antenna (cut wire to 8.2cm for 868MHZ frequency mode)
+- Alternatively solder a UFT connector to add an antenna. 
 
 Hey presto, one remote station
 ![Remote station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Prototype.jpg)
@@ -70,86 +71,52 @@ Junction boxes are:
 | Junction box | £5         |
 | **Total** | £67         |
 
-This meets our requirements for a low cost sensor.
+This meets our requirements for a low cost sensor. An antenna adds £15 to the price.
+![Finished prototype](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Sensor%20with%20aerial.jpg)
+
 
 ## Temperature sensor
 As above but using [Waterproof DS18B20-compatible Temperature Sensor](https://shop.pimoroni.com/products/ds18b20-programmable-resolution-1-wire-digital-thermometer?variant=32127344640083)
 
 ## Base station
-I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lotus ](https://wiki.seeedstudio.com/Seeeduino_Lotus/)and a [Grove Lora Module](https://wiki.seeedstudio.com/Grove_LoRa_Radio/) and stuffed them in old takeaway containers for that just cobbled together charm. 
-* Note:: all modules will run at 915MHz, make sure you buy the correct type. 
-* Note: Original plan was to use a LoRa HAT for the pi, mine was faulty so I went with what I had. The HAT has a better antenna so may have a better range.
-![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station.jpg)
+I didn't like my original base station so have made a new one consisting of a Raspberry Pi Zero 2 and an  [Adafruit Lora Bonnet](https://shop.pimoroni.com/products/adafruit-lora-radio-bonnet-with-oled-rfm95w-915mhz-radiofruit?variant=27912635220051)
 
 ### Assembly
 
-Even easier. Connect Lotus to USB on pi and Grove Lora to port D5. 
+Even easier. Add Lora bonnet to pi, add an SD card for the operating system and plug in an antenna. 
 
 ## Bill of materials
 | Item     | Cost |
 | ---      | ---       |
-| Raspberry Pi 3  | £34         |
-| Seeeduino Lotus| £13         |
-| Grove Lora module | £19.90         |
-| **Total** | £66.90         |
-* Note: Pi3 is not currently available. A pi4 would do fine, I suspect even a pi zero would be able to run this but not tested. 
+| Raspberry Pi Zero 2W  | £13.50         |
+| Adafruit Lora Bonnet| £30.60         |
+| 900 Mhz Antenna | £12.30         |
+| **Total** | £56.70         |
+
+I particularly like the little screen. As this will be headless we can make good use of that to see the most recent transmissions. 
+Note: Make sure all Lora devices are RFM9x as different types of devices cannot communicate. This limits our frequency to around 900Mhz. 
+Important: You must make sure that you follow radio frequency laws in your area. In the UK devices must use 863-870Mhz or 433Mhz.
+
+![Final base station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Base%20station%20zero.jpg)
 
 ## Base station code
 
-[For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/rf95_clientbase.ino)
+Set up raspberry Pi as usual. Install libraries from [here](https://learn.adafruit.com/adafruit-radio-bonnets)
+[Base station code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/brentbase_pub.py)
+Our code is quite complex but uses the ID of each station to put together a payload to send to thingspeak.com. Recorded data includes:
+- Probe readings (TDS and temperature)
+- Battery readings
+- Signal strength
+You should set up a channel at thingspeak and enter your channel number and API key. 
+I know it is best practice to have one channel per device but as I'm planning several nodes I'm considering the ensure node to be one device. 
 
-All I've done here is adapt the rf95client code in Radiohead library. it will transmit a test signal and listen for a transmission from the remote station and send this to the serial port. 
+## Calibration
+I have run this in a sealed container with tap water for 12 hours and compared average readings with known readings from a handheld meter. This lets me calculate K values for our code. (I found out the hard way that an unsealed container suffers from evaporation, which means your TDS readings will climb as the water becomes more concentrated). 
 
-[For pi](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Readfrombasestationandlog.py)
-This code reads the transmission from the remote station, parses to individual variables and logs.
-** To do ** Add uploading to a suitable IOT service and start building alerts. 
+Note that readings take time to settle down. The temperature sensor needs a while to settle in and so for the first hour or so readings are quite unstable. 
 
-## Range testing
-Upload this code to the Feather module:
+![calibration test](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/calibration.jpg)
 
-[For arduino](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/transmitwithvoltage.ino)
-
-This:
-- Reads battery voltage
-- Transmits to base station. 
-- Listens for base station commands and flashes LED when received. 
-
-Now we can get out on the road and test our signal with our not at all suspicious looking box. 
-![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/signaltester.png)
-I took my box for a walk along the river and recorded where it finally stopped blinking. 
-Overall I got a range of around 300m. This is a bit disappointing but not terrible. I suspect factors affecting range are:
-- Low quality antenna (consider upgrading)
-- Base station is on first floor of my house but could go on the roof. I also live in the valley which doesn't aid line of site
-- Most people don't have this thing at the end of their garden:
-![The historic and very, very solid Wharncliffe Viaduct](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Viaduct.jpg)
-
-Still for the intiial stage I know I can deploy one station, and probably as many as three on a 600m stretch of river which is a good start. 
-
-Note that we are collecting battery percentage. I based this on a minimum battery voltage of 3.3V. We can therefore use a simple linear model to analyse this data to forecast battery life. 
-
-[batterymodel.R](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/batterymodel.R)
-
-Transmitting every 2 seconds it forecasts a battery life of 8 days. 
-
-## Preparing for deployment
-This code also reads the sensor voltage and transmits a signal ID (I've made this 999, chose a unique value for each station) along with battery percentage.
-[](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/remotestation_v1.1.ino)
-Note that I had a problem concatenating the ID, percentage and sensor voltage so have multiplied these up to make them integers. A more experienced C coder will probably solve this problem in seconds. 
-This now transmits every 2 hours and puts the radio antenna to sleep between readings. 
-
-**In progress** testing this mode and predicting battery life. 
-
-Issues in testing:
-- Transmission stops after 12 hours in 2 hour sleep mode. Does not occur when delay is one hour. Testing 1.5 hours and charting battery life. 
-- Range is poorer than when in earlier signal testing- <50m. Possible upgrade for aerial needed. 
-
-MQTT deployment
-Updated base code to connect to thingspeak channel. 
-[Code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/read_MQTT_Edited.py)
-
-Housing
-IP68 container (still requires sealing at top end but we'll leave this open for now as may be required for external aeria. 
-![](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Remote%20station%20housing.jpg)
 
 ## To do next
 - Convert the sensor voltage to TDS and calibrate. (Note: we will do this at the base station so this can be altered more easily. I need to know river water temperature for this and will consider using this [Thames live temperature](https://dl1.findlays.net/show/temp/thames1) as a proxy. 
