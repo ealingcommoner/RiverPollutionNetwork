@@ -29,7 +29,13 @@ TDO sensors are around £130 each, whilst [this TDS sensor](https://www.dfrobot.
 
 ![Gravity TDS Sensor](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Gravity.jpg)
 
-## Remote Station
+## Node
+Each node will consist of
+- 2 remote TDS sensors
+- 1 remote temperature sensor (this is cruicial to calibrate our readings)
+- 1 base station
+
+## Remote TDS Sensor
 For the remote station I chose an [Adafruit Feather 32u4 with LoRa Radio Module](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/setup) 
 ![Radiofruit module](https://cdn-learn.adafruit.com/guides/cropped_images/000/001/273/medium640/thumb2.jpg?1520544037)
 
@@ -46,9 +52,8 @@ Hey presto, one remote station
 ![Remote station](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/Prototype.jpg)
 
 ### Casing
-**To do** 
-I'm looking at junction box like [this one](https://www.toolstation.com/junction-box-ip66/p47979)
-![](https://cdn.aws.toolstation.com/images/141020-UK/800/47979.jpg)
+I recommend an IP68 Waterproof junction box like [this one](https://www.amazon.co.uk/dp/B09NFSTPGG/ref=cm_sw_em_r_mt_dp_WT0A1Q1RJGSB5GH1H0KC?_encoding=UTF8&psc=1)
+![](https://m.media-amazon.com/images/I/71FYvOoO0XL._SL1500_.jpg)
 
 Ideally this needs to be IP68 in the event of full immersion. 
 Junction boxes are:
@@ -66,6 +71,9 @@ Junction boxes are:
 | **Total** | £67         |
 
 This meets our requirements for a low cost sensor.
+
+## Temperature sensor
+As above but using [Waterproof DS18B20-compatible Temperature Sensor](https://shop.pimoroni.com/products/ds18b20-programmable-resolution-1-wire-digital-thermometer?variant=32127344640083)
 
 ## Base station
 I have a Raspberry Pi 3 currently gathering dust. So I attached a [Seeeduino Lotus ](https://wiki.seeedstudio.com/Seeeduino_Lotus/)and a [Grove Lora Module](https://wiki.seeedstudio.com/Grove_LoRa_Radio/) and stuffed them in old takeaway containers for that just cobbled together charm. 
