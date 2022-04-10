@@ -42,7 +42,20 @@ Each remote station requires an ID. I have allocate 3 digit numbers in the syste
 So our TDS sensors are 996 and 998 (it doesn't seem sensible to use '999' as an ID!) and temperature sensor is 986. All this code is configured on this system. 
 This means we can add extra classes of devices (7 could be an oxygen sensor and 6 a relay for example). 
 
-## Remote TDS Sensor
+## The Brent Box
+
+![Brent Box](!https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/brentbox.jpg)
+
+I wanted to build a system which was:
+- Robust
+- Resistant to the elements
+- Built from cheap off the shelf parts. 
+- Can be adapted for any sensor. 
+
+At the heart of the system is the Brent Box. We'll learn more about its construction as we build the TDS sensor. 
+
+## Remote TDS Station
+
 For the remote station I chose an [Adafruit Feather 32u4 with LoRa Radio Module](https://learn.adafruit.com/adafruit-feather-32u4-radio-with-lora-radio-module/setup) 
 ![Radiofruit module](https://cdn-learn.adafruit.com/guides/cropped_images/000/001/273/medium640/thumb2.jpg?1520544037)
 
