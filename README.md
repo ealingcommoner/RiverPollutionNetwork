@@ -50,6 +50,7 @@ I wanted to build a system which was:
 - Robust
 - Resistant to the elements
 - Built from cheap off the shelf parts. 
+- Battery life of one month. 
 - Can be adapted for any sensor. 
 
 At the heart of the system is the Brent Box. We'll learn more about its construction as we build the TDS sensor. 
@@ -76,11 +77,8 @@ Hey presto, one remote station
 I recommend an IP68 Waterproof junction box like [this one](https://www.amazon.co.uk/dp/B09NFSTPGG/ref=cm_sw_em_r_mt_dp_WT0A1Q1RJGSB5GH1H0KC?_encoding=UTF8&psc=1)
 ![](https://m.media-amazon.com/images/I/71FYvOoO0XL._SL1500_.jpg)
 
-Ideally this needs to be IP68 in the event of full immersion. 
-Junction boxes are:
-- Resistant to the elements
-- Cheap (£5)
-- Discreet. This will be deployed in a public place and relies on safety through obscurity. We want our remote unit to be as boring as possible. 
+This needs to be IP68 in the event of full immersion. 
+Junction boxes are a cheap, tried and tested technology and discreet enough that our sensors should be fairly unnoticeable. 
 
 ### Cost
 | Item     | Cost |
@@ -104,7 +102,7 @@ Install Arduino IDE and ensure that you have the correct board and libraries add
 - Board is Adafruit Feather 32u4
 
 Set your ID number to agree with the IDs you have included in your base station code and flash [this code](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/tdsstation.ino). 
-Note that this transmits every 15 minutes, you can alter this to reflect your needs (in the UK you require a 0.1% duty cycle, transmission time is <1s so this is compliant)
+Note that this transmits every 15 minutes, you can alter this to reflect your needs (in the UK you require a 0.1% duty cycle, transmission time is <1s so this is compliant but a shorter duty cycle may not be)
 
 ## Temperature sensor
 As above but using [Waterproof DS18B20-compatible Temperature Sensor](https://shop.pimoroni.com/products/ds18b20-programmable-resolution-1-wire-digital-thermometer?variant=32127344640083)
@@ -149,6 +147,17 @@ Recorded data includes:
 You should set up a channel at thingspeak and enter your channel number and API key. 
 I know it is best practice to have one channel per device but as I'm planning several nodes I'm considering the ensure node to be one device. 
 
+## Thingspeak
+As the base station code stands it will fill the fields in this order, so you should name your fields in the same way. 
+- TDS Unit 996 (units PPM)
+- Battery Unit 996 (As a percentage counting down to 3.3V)
+- TDS Unit 998
+- Battery Unit 998
+- Signal Strength 996 (dB)
+- Signal Strength 998
+- Temperature Unit 986 (Centrigrade)
+- Battery Unit 986. 
+
 ## Calibration
 I have run this in a sealed container with tap water for 12 hours and compared average readings with known readings from a handheld meter. This lets me calculate K values for our code. (I found out the hard way that an unsealed container suffers from evaporation, which means your TDS readings will climb as the water becomes more concentrated). 
 
@@ -168,12 +177,16 @@ In testing I have found a range of 350m, your experience may vary based on build
 
 ## To do next
 - Test sensors with a range of materials including mineral water and distilled water. 
+- Tweak power settings. I had experimented with taking 25 readings over a minute, this offers no benefit over a single reading, therefore I am testing 5 readings with a delay of 100ms making live time half a second. I'm also dialling duty cycle down to 30 minutes to boost battery life. 
 - Deploy to river. Ideally these will just be attached to a stake and hammered in. 
 
 You could build a cluster model with a range of sensors (TDO, TDS and temperature) for the best possible range of readings. 
-To cover more river I have a few ideas, either getting local volunteers to host their own base stations or to build some simple relay stations based around the remote sensor design. I also want to make these solar powered in future. 
+To cover more river I have a few ideas, either getting local volunteers to host their own base stations and/or or some simple relay stations based around the Brent Box design. A relay design has obvious weak points as losing a single relay cuts off everything downrange. My preferance would be to combine relays and base stations along the route for a more resilient network design.
+
+## Brent Box 2
+Our plan is to deploy the sensors for a month and see if we get useful data. The only way to replenish the batteries will be to get in the river and physically open the boxes to replace, which will get tiresome very fast. A future version of the network will need to be solar powered so we can just place and forget. I'm looking at the Adafruit solar charging system and a slightly larger box to do this. 
 
 ## Notes on project
-- This is my first Arduino project and I'm extremely grateful to the Radiohead library creators for making this easy. 
-- If you think this is something that can help your community please do it. Feel free to use, criticise or modify anything I've created to make it happen. 
+- This is my first microcontroller project and I'm extremely grateful to the Radiohead library creators for making this easy. 
+- If you think this is something that can help your community please do it. Feel free to use, criticise or modify anything I've created to make it happen but please give credit where appropriate. If you want to build your own maybe wait until I've finished the first test and see if any unexpected bugs emerge.  
 - Massive thanks to the incredible service from The Pi Hut and Pimoroni. As ever I'm staggered by the sheer creativity of Adafruit and their incredible board. 
