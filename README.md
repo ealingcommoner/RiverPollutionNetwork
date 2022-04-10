@@ -44,7 +44,7 @@ This means we can add extra classes of devices (7 could be an oxygen sensor and 
 
 ## The Brent Box
 
-![Brent Box](!https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/brentbox.jpg)
+![Brent Box](https://github.com/ealingcommoner/RiverPollutionNetwork/blob/main/brentbox.jpg)
 
 I wanted to build a system which was:
 - Robust
