@@ -184,7 +184,7 @@ You could build a cluster model with a range of sensors (TDO, TDS and temperatur
 To cover more river I have a few ideas, either getting local volunteers to host their own base stations and/or or some simple relay stations based around the Brent Box design. A relay design has obvious weak points as losing a single relay cuts off everything downrange. My preferance would be to combine relays and base stations along the route for a more resilient network design.
 
 ## Brent Box 2
-Our plan is to deploy the sensors for a month and see if we get useful data. The only way to replenish the batteries will be to get in the river and physically open the boxes to replace, which will get tiresome very fast. A future version of the network will need to be solar powered so we can just place and forget. I'm looking at the Adafruit solar charging system and a slightly larger box to do this. 
+Our plan is to deploy the sensors for a month and see if we get useful data. The only way to replenish the batteries will be to get in the river and physically open the boxes to replace, which will get tiresome very fast. A future version of the network will need to be solar powered so we can just place and forget. I'm looking at the Adafruit solar charging system and a slightly larger box to do this. If power (and coding skills permit) I'd like each Mk2 to have temperature and TDS and act as a relay. 
 
 ## Notes on project
 - This is my first microcontroller project and I'm extremely grateful to the Radiohead library creators for making this easy. 
